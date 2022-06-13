@@ -4,10 +4,13 @@ from .models import Group, Post, User
 from django.contrib.auth.decorators import login_required
 
 
+LIMIT = 10
+
+
 @login_required
 def index(request):
     posts = Post.objects.all()
-    paginator = Paginator(posts, 10)
+    paginator = Paginator(posts, LIMIT)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
@@ -20,7 +23,7 @@ def index(request):
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
     posts = Post.objects.select_related('group')
-    paginator = Paginator(posts, 10)
+    paginator = Paginator(posts, LIMIT)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
@@ -35,7 +38,7 @@ def profile(request, username):
     author = get_object_or_404(User, username=username)
     author_posts = author.posts.all()
     posts_count = author.posts.count()
-    paginator = Paginator(author_posts, 10)
+    paginator = Paginator(author_posts, LIMIT)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {
