@@ -74,4 +74,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-SORT_POST = 10
+LIMIT = 10

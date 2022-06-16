@@ -1,38 +1,40 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
 {% block title %}
-<h1><p style="font-style">Запись</h1> {{ title }}
+Пост {{title}}
 {% endblock %}
-{% block content %}    
+{% block content %}
+  <title>Пост {{title}}</title>
       <div class="row">
         <aside class="col-12 col-md-3">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
-              Дата публикации: {{ post.pub_date|date:'d E Y' }}
+              Дата публикации: {{ posts.pub_date|date:"d E Y" }}
             </li>
-            {% if posts.group %}
+            {%if posts.gorup %}  
               <li class="list-group-item">
-                Группа: {{ posts.group.title }}
-                <a href="{% url 'posts:group_posts' posts.pk %}">все записи группы</a>
-            {% endif %}
+                Группа: {{posts.group.title}}
+                <a href="{% url 'posts:group_list' posts.group.slug %}">
+                  все записи группы
+                </a>
               </li>
+              {% endif %}
               <li class="list-group-item">
-                Автор: {{ author.get_full_name }}
+                Автор: {{ posts.author.get_full_name }}
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
-              Всего постов автора:  <span >{{ posts_count }}</span>
+              Всего постов автора:  <span >{{posts_count}}</span>
             </li>
             <li class="list-group-item">
-              <a href="">
+              <a href="{% url 'posts:profile' posts.author.username %}">
                 все посты пользователя
               </a>
             </li>
+            <a class="nav-link" href="{% url 'posts:post_create' %}">Редактировать запись</a>
           </ul>
         </aside>
         <article class="col-12 col-md-9">
           <p>
-            {{ post.text }}
+          {{posts.text}}
           </p>
         </article>
-      </div> 
 {% endblock %}

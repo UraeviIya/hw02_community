@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block title %}
-  Профайл пользователя {{ author.get_full_name }}
 {% endblock %}
 {% block content %}
    <h1>Все посты пользователя {{ author.get_full_name }}</h1>
@@ -11,14 +10,13 @@
       <ul>
         <li>
           Автор: {{ post.author.get_full_name }}
-          <a href="">все посты пользователя</a>
         </li>
         <li>
           Дата публикации: {{ post.pub_date|date:'d E Y' }} 
         </li>
       </ul>
       <p>{{ post.text }}</p>
-          <a href="{% url 'posts:post_detail' post.pk %}">подробная информация</a>
+          <a href="{% url 'posts:post_detail' post.pk %}">подробная информация</a>     
     </article>
     {% if post.group %}
       <a href="{% url 'posts:profile' post.group.slug %}">все записи группы</a>
