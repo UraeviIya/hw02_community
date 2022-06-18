@@ -62,7 +62,7 @@ LOGIN_URL = 'users:login'
 
 LOGIN_REDIRECT_URL = 'posts:index'
 
-LANGUAGE_CODE = "ru"
+LANGUAGE_CODE = "ru-en"
 
 TIME_ZONE = 'UTC'
 
@@ -74,4 +74,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LIMIT = 10
+PAGINATOR_LIMIT = 10

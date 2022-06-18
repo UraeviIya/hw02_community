@@ -1,23 +1,19 @@
 {% extends 'base.html' %}
 {% block title %}
-Пост {{title}}
 {% endblock %}
 {% block content %}
-  <title>Пост {{title}}</title>
-      <div class="row">
+<div class="container py-5">
+       <div class="row">
         <aside class="col-12 col-md-3">
           <ul class="list-group list-group-flush">
             <li class="list-group-item">
               Дата публикации: {{ posts.pub_date|date:"d E Y" }}
             </li>
-            {%if posts.gorup %}  
               <li class="list-group-item">
                 Группа: {{posts.group.title}}
-                <a href="{% url 'posts:group_list' posts.group.slug %}">
+                <a href="{% url 'posts:group_list' posts.group.slug %}"><br>
                   все записи группы
                 </a>
-              </li>
-              {% endif %}
               <li class="list-group-item">
                 Автор: {{ posts.author.get_full_name }}
               </li>
@@ -29,12 +25,16 @@
                 все посты пользователя
               </a>
             </li>
-            <a class="nav-link" href="{% url 'posts:post_create' %}">Редактировать запись</a>
           </ul>
         </aside>
         <article class="col-12 col-md-9">
           <p>
-          {{posts.text}}
+          {{posts.text}}<br>
+          <p>
+            <a class="btn btn-primary" href="{% url 'posts:post_create' %}">Редактировать запись</a>
+          </p>
           </p>
         </article>
+      </div>
+    </div>
 {% endblock %}

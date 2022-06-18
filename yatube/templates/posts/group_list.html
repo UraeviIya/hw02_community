@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-  <h1>Лев Толстой – зеркало русской революции.</h1>
+  <h2>{{ group|title }}</h2>
 {% endblock %}
 {% block content %}
   {{ group.title }}
@@ -21,4 +21,3 @@
 {% endfor %}
 {% include 'posts/includes/paginator.html' %}
 {% endblock %}
-
