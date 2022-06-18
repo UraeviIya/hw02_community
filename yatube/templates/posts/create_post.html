@@ -2,6 +2,7 @@
 {% block title %}
 {% endblock %}
 {% block content %}
+{% load user_filters %}
     <div class="container py-5">
       <div class="row justify-content-center">
         <div class="col-md-8 p-5">
@@ -10,7 +11,6 @@
               {% if edit %}Редактировать запись{% else %}Новая запись{% endif %}      
             </div>
             <div class="card-body">        
-              
             {% csrf_token %}          
             <div class="form-group row my-3 p-3">
             <label for="id_text">
@@ -45,7 +45,6 @@
               </button>
                 </div>
               </div>
-            
           </div>
         </div>
       </div>
