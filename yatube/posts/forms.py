@@ -6,7 +6,8 @@ from django import forms
 class PostForm(ModelForm):
     class Meta:
         model = Post
-        fields = ('group', 'text')
+        fields = ('text', 'group')
+        label = {'text': 'Текст поста', 'group': 'Группа'}
 
         widgets = {
             'text': forms.Textarea(attrs={'class': 'form-control'}),

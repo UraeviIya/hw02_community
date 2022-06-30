@@ -18,7 +18,6 @@ def index(request):
     posts = Post.objects.all()
     page_obj = pagination(request, posts)
     context = {
-
         'page_obj': page_obj,
     }
     return render(request, 'posts/index.html', context)
@@ -66,28 +65,30 @@ def post_detail(request, post_id):
 
 @login_required
 def post_create(request):
-    if request.method == "POST":
-        form = PostForm(request.POST or None)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
-            return redirect('posts:profile', post.author.username)
-        return render(request, 'posts/create_post.html', {'form': form})
-    form = PostForm()
+    form = PostForm(request.POST or None)
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.author = request.user
+        post.save()
+        return redirect('posts:profile', post.author.username)
     return render(request, 'posts/create_post.html', {'form': form})
 
 
 @login_required
 def post_edit(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    edit = True
-    form = PostForm(request.POST or None)
+    is_edit = True
+
+    if post.author != request.user:
+        return redirect('posts:post_detail', post_id)
+
+    form = PostForm(request.POST or None, instance=post)
     if form.is_valid():
         post.save()
-        return redirect('posts:post_detail', post_id)
+        return redirect('posts:post_detail', post.pk)
     context = {
-        'edit': edit,
+        'is_edit': is_edit,
         'form': form,
+        'post_id': post_id,
     }
     return render(request, 'posts/create_post.html', context)

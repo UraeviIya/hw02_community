@@ -1,7 +1,5 @@
 {% load static %}
 
-
-<header>
   <nav class="navbar navbar-light" style="background-color: lightskyblue">
     <div class="container">
       <a class="navbar-brand" href="{% url 'posts:index' %}">
@@ -20,10 +18,11 @@
         </li>
         {% if request.user.is_authenticated %}
         <li class="nav-item"> 
-          <a class="nav-link" href="{% url 'posts:post_create' %}">Новая запись</a>
+          <a class="nav-link {% if view_name == 'posts:post_create' %}active{% endif %}"
+          href="{% url 'posts:post_create' %}">Новая запись</a>
         </li>
         <li class="nav-item"> 
-          <a class="nav-link link-light" href="">Изменить пароль</a>
+          <a class="nav-link link-light" href="{% url 'users:password_change' %}">Изменить пароль</a>
         </li>
         <li class="nav-item"> 
           <a class="nav-link link-light" {% if view_name == 'users:logout' %}active{% endif %}
@@ -34,10 +33,12 @@
         </li>
         {% else %}
         <li class="nav-item"> 
-          <a class="nav-link link-light" href="{% url 'users:login' %}">Войти</a>
+          <a class="nav-link {% if view_name == 'users:login' %}active{% endif %}"
+          href="{% url 'users:login' %}">Войти</a>
         </li>
         <li class="nav-item"> 
-          <a class="nav-link link-light" href="{% url 'users:signup' %}">Регистрация</a>
+          <a class="nav-link {% if view_name == 'users:signup' %}active{% endif %}"
+          href="{% url 'users:signup' %}">Регистрация</a>
         </li>
         {% endif %}
         {% endwith %}
@@ -45,4 +46,3 @@
       {# Конец добавленого в спринте #}
     </div>
   </nav>
-</header>
